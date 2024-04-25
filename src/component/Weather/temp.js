@@ -61,8 +61,8 @@ const Temp = () => {
             Search
           </button>
         </div>
+        <WeatherCard tempInfo={tempInfo} />
       </div>
-      <WeatherCard tempInfo={tempInfo} />
     </>
   );
 };
