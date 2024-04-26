@@ -41,6 +41,7 @@ const Temp = () => {
   useEffect(() => {
     console.log('render')
     getWetherInfo();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSearchChange = (e) => {
