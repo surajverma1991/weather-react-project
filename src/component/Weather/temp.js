@@ -10,13 +10,13 @@ const Temp = () => {
 
   const getWetherInfo = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=${weatherApiKey}`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=${weatherApiKey}`;
 
       const res = await fetch(url);
       const data = await res.json();
 
       const { temp, humidity, pressure } = data.main;
-      const { main: weathermood } = data.weather[0];
+      const { main: weatherMood } = data.weather[0];
       const { name } = data;
       const { speed } = data.wind;
       const { country, sunset } = data.sys;
@@ -25,7 +25,7 @@ const Temp = () => {
         temp,
         humidity,
         pressure,
-        weathermood,
+        weatherMood,
         name,
         speed,
         country,
@@ -40,7 +40,11 @@ const Temp = () => {
 
   useEffect(() => {
     getWetherInfo();
-  }, []);
+  }, [weatherApiKey]);
+
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   return (
     <>
@@ -53,7 +57,7 @@ const Temp = () => {
             id="search"
             className="searchTerm"
             value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={handleSearchChange}
           />
           <button
             className="searchButton"

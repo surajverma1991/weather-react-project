@@ -7,7 +7,7 @@ const WeatherCard = ({ tempInfo }) => {
     temp,
     humidity,
     pressure,
-    weathermood,
+    weatherMood,
     name,
     speed,
     country,
@@ -15,8 +15,8 @@ const WeatherCard = ({ tempInfo }) => {
   } = tempInfo;
 
   useEffect(() => {
-    if (weathermood) {
-      switch (weathermood) {
+    if (weatherMood) {
+      switch (weatherMood) {
         case "Clouds":
           setWeatherState("wi-day-cloudy");
           break;
@@ -32,9 +32,9 @@ const WeatherCard = ({ tempInfo }) => {
           break;
       }
     }
-  }, [weathermood]);
+  }, [weatherMood]);
 
-  //   conerting the second into time
+  //   converting the second into time
   let sec = sunset;
   let date = new Date(sec * 1000);
   let timeStr = `${date.getHours()}:${date.getMinutes()}`;
@@ -50,7 +50,7 @@ const WeatherCard = ({ tempInfo }) => {
             <span>{temp}&deg;</span>
           </div>
           <div className="description">
-            <div className="weatherCondition">{weathermood}</div>
+            <div className="weatherCondition">{weatherMood}</div>
             <div className="place">
               {name}, {country}
             </div>
@@ -58,7 +58,7 @@ const WeatherCard = ({ tempInfo }) => {
         </div>
         <div className="date">{new Date().toLocaleString()}</div>
 
-        {/* our 4 coloumn section  */}
+        {/* our 4 column section  */}
 
         <div className="extra-temp">
           <div className="temp-info-minmax">
