@@ -6,15 +6,16 @@ const Temp = () => {
   const [searchValue, setSearchValue] = useState("new panvel");
   const [tempInfo, setTempInfo] = useState({});
 
-  const weatherApiKey = process.env.REACT_APP_API_KEY;
-
   const getWetherInfo = async () => {
     try {
       if (!searchValue) return;
 
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=${weatherApiKey}`;
+      const url = `/.netlify/functions/weather?keyword=${searchValue}`;
 
-      const res = await fetch(url);
+      const res = await fetch(url , {
+        method: "GET",
+        headers: { accept: "application/json" }
+      });
 
       if (!res.ok) {
         // Handle specific HTTP error statuses
@@ -28,6 +29,8 @@ const Temp = () => {
       }
 
       const data = await res.json();
+
+      console.log(data);
 
       const { temp, humidity, pressure } = data.main;
       const { main: weatherMood } = data.weather[0];
@@ -53,10 +56,9 @@ const Temp = () => {
   };
 
   useEffect(() => {
-    console.log("render");
     getWetherInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [weatherApiKey]);
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
