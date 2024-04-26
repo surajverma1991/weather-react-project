@@ -10,9 +10,23 @@ const Temp = () => {
 
   const getWetherInfo = async () => {
     try {
+      if (!searchValue) return;
+
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=${weatherApiKey}`;
 
       const res = await fetch(url);
+
+      if (!res.ok) {
+        // Handle specific HTTP error statuses
+        if (res.status === 401) {
+          throw new Error("API unauthorized - Invalid API key");
+        } else if (res.status === 403) {
+          throw new Error("API forbidden - Check API key permissions");
+        } else {
+          throw new Error(`API error - HTTP Status: ${res.status}`);
+        }
+      }
+
       const data = await res.json();
 
       const { temp, humidity, pressure } = data.main;
@@ -39,10 +53,10 @@ const Temp = () => {
   };
 
   useEffect(() => {
-    console.log('render')
+    console.log("render");
     getWetherInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weatherApiKey]);
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
