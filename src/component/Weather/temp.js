@@ -3,12 +3,14 @@ import "../Weather/style.css";
 import WeatherCard from "./WeatherCard";
 
 const Temp = () => {
-  const [searchValue, setSearchValue] = useState("mumbai");
+  const [searchValue, setSearchValue] = useState("new panvel");
   const [tempInfo, setTempInfo] = useState({});
+
+  const weatherApiKey = process.env.REACT_APP_API_KEY;
 
   const getWetherInfo = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=3a02b83a39261f0e7716f735e2c33b29`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=${weatherApiKey}`;
 
       const res = await fetch(url);
       const data = await res.json();
