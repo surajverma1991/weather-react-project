@@ -39,8 +39,9 @@ const Temp = () => {
   };
 
   useEffect(() => {
+    console.log('render')
     getWetherInfo();
-  }, [weatherApiKey]);
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
